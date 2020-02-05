@@ -39,7 +39,7 @@ class User extends Authenticatable
         if ($this->hasAnyRole($roles)) {
             return true;
         }
-        abort(401, 'This action is unauthorized.');
+        return response()->json(['message'=>'This action is unauthorized.'],401);
     }
     public function hasAnyRole($roles)
     {
@@ -58,7 +58,7 @@ class User extends Authenticatable
     }
     public function hasRole($role)
     {
-        if ($this->roles()->where(‘name’, $role)->first()) {
+        if ($this->roles()->where('name', $role)->first()) {
             return true;
         }
         return false;
